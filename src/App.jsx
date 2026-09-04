@@ -12,6 +12,7 @@ import HomePage from "./components/HomePage";
 import Favorites from "./components/Favorites";
 import Login from "./components/Login";
 import Bookings from "./components/Bookings";
+import AdminPanel from "./components/AdminPanel";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route path="/listings/:id" element={<ListingsDetail />} />
         <Route path="/favorites" element={<Favorites />} />
         <Route path="/bookings" element={<Bookings />} />
+        <Route path="/admin" element={<AdminPanel />} />
       </Routes>
       <ToastContainer position="top-center" />
     </ApolloProvider>

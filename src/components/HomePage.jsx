@@ -22,6 +22,8 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import Navbar from "./Navbar";
 import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import Footer from "./Footer";
+import { Atom } from "react-loading-indicators";
 
 const DATA_HOME = gql`
   query Homee($limit: Int) {
@@ -58,8 +60,7 @@ function HomePage() {
   const handleFavoriteInclude = (listingId) => {
     if (!accessToken) {
       setDialogOpen(true);
-    } else {
-      addFavorite({ variables: { listingId } });
+      return;
     }
     if (favorites.includes(listingId)) {
       setFavorites(favorites.filter((id) => id !== listingId));
@@ -72,9 +73,21 @@ function HomePage() {
 
   if (loading) {
     return (
-      <Container sx={{ display: "flex", justifyContent: "center", mt: 5 }}>
-        <Typography variant="h3">Loading...</Typography>
-      </Container>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+        }}
+      >
+        <Atom
+          color="#32cd32"
+          size="medium"
+          text="Loading..."
+          textColor="#c49696"
+        />
+      </div>
     );
   }
   if (error) {
@@ -87,7 +100,7 @@ function HomePage() {
     );
   }
   return (
-    <Container>
+    <Container maxWidth="lg">
       <Navbar
         accessToken={accessToken}
         setDialogOpenProf={setDialogOpenProf}
@@ -207,7 +220,7 @@ function HomePage() {
             variant="contained"
             color="error"
             onClick={() => {
-              logout();
+              confirm("Profildan chiqmoqchimisiz?") && logout();
               setDialogOpenProf(false);
             }}
           >
@@ -215,6 +228,7 @@ function HomePage() {
           </Button>
         </DialogActions>
       </Dialog>
+      <Footer />
     </Container>
   );
 }

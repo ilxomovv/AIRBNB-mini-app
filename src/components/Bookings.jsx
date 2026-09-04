@@ -13,6 +13,7 @@ import { Link, useNavigate } from "react-router";
 import ClearIcon from "@mui/icons-material/Clear";
 import { useAuth } from "../Store/useAuth";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+import { Atom } from "react-loading-indicators";
 
 const BOOKINGS_API = gql`
   query Query {
@@ -55,7 +56,23 @@ function Bookings() {
   console.log(data);
 
   if (loading) {
-    return <Typography variant="h3">Loading...</Typography>;
+    return (
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+        }}
+      >
+        <Atom
+          color="#32cd32"
+          size="medium"
+          text="Loading..."
+          textColor="#c49696"
+        />
+      </div>
+    );
   }
   if (error) {
     return (

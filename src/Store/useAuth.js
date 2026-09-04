@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 
-export const useAuth = create()(
+export const useAuth = create(
   persist(
     (set) => ({
       accessToken: null,

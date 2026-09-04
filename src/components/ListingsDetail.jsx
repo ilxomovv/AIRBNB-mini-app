@@ -24,6 +24,7 @@ import { Controller, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { useAuth } from "../Store/useAuth";
 import { useState } from "react";
+import { Atom } from "react-loading-indicators";
 
 const DETAILS = gql`
   query Query($listingId: ID!) {
@@ -109,6 +110,25 @@ function ListingsDetail() {
       },
     });
   };
+  if (loading) {
+    return (
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+        }}
+      >
+        <Atom
+          color="#32cd32"
+          size="medium"
+          text="Loading..."
+          textColor="#c49696"
+        />
+      </div>
+    );
+  }
   console.log(data);
 
   const listing = data?.listing;
@@ -124,15 +144,7 @@ function ListingsDetail() {
       </Typography>
       <br />
       <br />
-      {loading && (
-        <Typography
-          variant="h3"
-          style={{ textAlign: "center" }}
-          color="secondary"
-        >
-          Loading...
-        </Typography>
-      )}
+
       {error && (
         <Typography variant="h1" color="error">
           {error.message}

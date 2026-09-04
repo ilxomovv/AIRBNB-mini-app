@@ -22,6 +22,7 @@ import { Link } from "react-router";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import SearchIcon from "@mui/icons-material/Search";
 import Navbar from "./Navbar";
+import { Atom } from "react-loading-indicators";
 
 const addQueary = gql`
   mutation addFavorites($listingId: ID!) {
@@ -88,9 +89,21 @@ function Listings() {
   const [dialogOpenProf, setDialogOpenProf] = useState(false);
   if (loading) {
     return (
-      <Typography style={{ textAlign: "center" }} variant="h3">
-        Loading...
-      </Typography>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+        }}
+      >
+        <Atom
+          color="#32cd32"
+          size="medium"
+          text="Loading..."
+          textColor="#c49696"
+        />
+      </div>
     );
   }
   if (error) {

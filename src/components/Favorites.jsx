@@ -14,6 +14,7 @@ import ReplyAllIcon from "@mui/icons-material/ReplyAll";
 import ClearIcon from "@mui/icons-material/Clear";
 import { useAuth } from "../Store/useAuth";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+import { Atom } from "react-loading-indicators";
 
 const favoritesData = gql`
   query Fav {
@@ -49,9 +50,21 @@ function Favorites() {
 
   if (loading) {
     return (
-      <Container sx={{ display: "flex", justifyContent: "center", mt: 5 }}>
-        <Typography variant="h3">Loading...</Typography>
-      </Container>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+        }}
+      >
+        <Atom
+          color="#32cd32"
+          size="medium"
+          text="Loading..."
+          textColor="#c49696"
+        />
+      </div>
     );
   }
   if (error) {
