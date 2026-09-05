@@ -151,6 +151,7 @@ function Login() {
             variant="contained"
             disabled={loading}
             fullWidth
+            type="submit"
           >
             Log In
           </Button>

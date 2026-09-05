@@ -165,7 +165,7 @@ function HomePage() {
               style={{ textDecoration: "none", color: "inherit" }}
             >
               <Typography variant="h6" sx={{ mt: 1 }}>
-                {e.title}
+                {e.title.slice(0, 20)}
               </Typography>
             </Link>
             <Stack direction="row" spacing={1}>

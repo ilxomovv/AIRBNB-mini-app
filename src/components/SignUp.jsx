@@ -138,6 +138,7 @@ function SignUp() {
           <Button
             loading={loading}
             variant="contained"
+            type="submit"
             onClick={handleSubmit(handlesign)}
           >
             Sign Up

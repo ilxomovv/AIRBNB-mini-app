@@ -88,6 +88,7 @@ function AdminPanel() {
       images: "",
       isFeatured: false,
       rating: 0,
+      reviewsCount: 0,
     },
   });
   const [showPassword, setShowPassword] = useState(false);
@@ -149,6 +150,7 @@ function AdminPanel() {
           : [],
         isFeatured: Boolean(formData.isFeatured),
         rating: parseFloat(formData.rating),
+        reviewsCount: parseInt(formData.reviewsCount),
       };
 
       await createListing({
@@ -376,6 +378,18 @@ function AdminPanel() {
             />
 
             <Controller
+              name="reviewsCount"
+              control={controlAddListing}
+              render={({ field }) => (
+                <TextField
+                  {...field}
+                  fullWidth
+                  size="small"
+                  label="reviewsCount"
+                />
+              )}
+            />
+            <Controller
               name="images"
               control={controlAddListing}
               render={({ field }) => (
@@ -472,8 +486,13 @@ function AdminPanel() {
               )}
             />
 
-            <Button type="submit" variant="contained" sx={{ mt: 1 }}>
-              {loading ? <CircularProgress size={24} /> : "Login Admin"}
+            <Button
+              loading={loading}
+              type="submit"
+              variant="contained"
+              sx={{ mt: 1 }}
+            >
+              Login Admin
             </Button>
           </Stack>
         </form>
