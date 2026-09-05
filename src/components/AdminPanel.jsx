@@ -423,7 +423,7 @@ function AdminPanel() {
       <Paper sx={{ p: { xs: 2, sm: 3 } }} elevation={3}>
         <form onSubmit={handleSubmit(handleS)}>
           <Stack spacing={2}>
-            <Typography variant="h5" textAlign="center">
+            <Typography variant="h5" style={{ textAlign: "center" }}>
               Admin login
             </Typography>
 
