@@ -20,6 +20,7 @@ import { useAuth } from "../Store/useAuth";
 import { gql } from "@apollo/client";
 import { useMutation } from "@apollo/client/react";
 import { toast } from "react-toastify";
+import { Link } from "react-router";
 
 const CREATE_LISTING_MUTATION = gql`
   mutation CreateListing($input: CreateListingInput!) {
@@ -123,7 +124,7 @@ function AdminPanel() {
         }
       }
     } catch (err) {
-      console.error(err);
+      toast.error(err.message);
     }
   };
 
@@ -175,11 +176,7 @@ function AdminPanel() {
           Create Listing
         </Typography>
 
-        {error && (
-          <Alert severity="error" sx={{ mb: 2 }}>
-            {error.message}
-          </Alert>
-        )}
+        {error && toast.error(error.message)}
 
         <form onSubmit={handleSubmitAddListing(onSubmit)}>
           <Stack spacing={2}>
@@ -193,8 +190,8 @@ function AdminPanel() {
                   fullWidth
                   size="small"
                   label="title"
-                  error={!!error}
-                  helperText={error?.message}
+                  error={error}
+                  helperText={error && error?.message}
                 />
               )}
             />
@@ -285,13 +282,14 @@ function AdminPanel() {
               control={controlAddListing}
               rules={{
                 max: {
-                  value: 10,
-                  message: "Value must be greater than 10",
+                  value: 5,
+                  message: "Value must be greater than 5",
                 },
               }}
               render={({ field, fieldState: { error } }) => (
                 <TextField
                   {...field}
+                  error={error}
                   helperText={error && error.message}
                   fullWidth
                   size="small"
@@ -388,7 +386,6 @@ function AdminPanel() {
             <Button
               type="submit"
               variant="contained"
-              disabled={loading}
               sx={{ mt: 1 }}
               loading={loadingAddListing}
             >
@@ -404,6 +401,11 @@ function AdminPanel() {
       maxWidth="xs"
       sx={{ mt: { xs: 2, sm: 8 }, px: { xs: 2, sm: 3 } }}
     >
+      <Link to="/">
+        <Button variant="contained">Back to Home</Button>
+      </Link>
+      <br />
+      <br />
       <Paper sx={{ p: { xs: 2, sm: 3 } }} elevation={3}>
         <form onSubmit={handleSubmit(handleS)}>
           <Stack spacing={2}>
@@ -426,8 +428,8 @@ function AdminPanel() {
                   label="Email"
                   type="email"
                   size="small"
-                  error={!!error}
-                  helperText={error?.message}
+                  error={error}
+                  helperText={error && error?.message}
                 />
               )}
             />
@@ -463,19 +465,14 @@ function AdminPanel() {
                       ),
                     },
                   }}
-                  error={!!error}
+                  error={error}
                   label="Password"
-                  helperText={error?.message}
+                  helperText={error && error?.message}
                 />
               )}
             />
 
-            <Button
-              type="submit"
-              variant="contained"
-              disabled={loading}
-              sx={{ mt: 1 }}
-            >
+            <Button type="submit" variant="contained" sx={{ mt: 1 }}>
               {loading ? <CircularProgress size={24} /> : "Login Admin"}
             </Button>
           </Stack>

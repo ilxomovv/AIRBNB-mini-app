@@ -14,6 +14,7 @@ import ClearIcon from "@mui/icons-material/Clear";
 import { useAuth } from "../Store/useAuth";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import { Atom } from "react-loading-indicators";
+import { toast } from "react-toastify";
 
 const BOOKINGS_API = gql`
   query Query {
@@ -75,11 +76,7 @@ function Bookings() {
     );
   }
   if (error) {
-    return (
-      <Typography variant="h3" color="error">
-        {error.message}
-      </Typography>
-    );
+    return toast.error(error.message);
   }
 
   const handleRemove = (bookingId) => {

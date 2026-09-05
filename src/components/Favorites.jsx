@@ -10,11 +10,10 @@ import {
   Typography,
 } from "@mui/material";
 import { Link, useNavigate } from "react-router";
-import ReplyAllIcon from "@mui/icons-material/ReplyAll";
-import ClearIcon from "@mui/icons-material/Clear";
 import { useAuth } from "../Store/useAuth";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import { Atom } from "react-loading-indicators";
+import { toast } from "react-toastify";
 
 const favoritesData = gql`
   query Fav {
@@ -68,13 +67,7 @@ function Favorites() {
     );
   }
   if (error) {
-    return (
-      <Container sx={{ mt: 5 }}>
-        <Typography color="error" variant="h4">
-          Error: {error.message}
-        </Typography>
-      </Container>
-    );
+    return toast.error(error.message);
   }
   const malumotBorYokiYoq = data?.favorites;
 
@@ -83,7 +76,7 @@ function Favorites() {
       <Button onClick={() => navigate(-1)} startIcon={<ArrowBackIosIcon />}>
         Back
       </Button>
-      <h1>{malumotBorYokiYoq.length === 0 ? "no information" : null}</h1>
+      <h1>{malumotBorYokiYoq.length === 0 && "no information"}</h1>
       <Grid container spacing={2}>
         {data?.favorites?.map((e) => (
           <Grid size={{ xs: 11, sm: 6, md: 3 }} key={e.id}>
