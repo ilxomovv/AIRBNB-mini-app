@@ -1,255 +1,232 @@
+import { Box, Container, Grid, Link, Typography } from "@mui/material";
+
 function Footer() {
   return (
-    <footer
-      style={{
-        marginTop: "80px",
+    <Box
+      sx={{
+        mt: 10,
+        pt: 5,
+        pb: 3,
+        bgcolor: "#fafafa",
         borderTop: "1px solid #ddd",
-        padding: "40px 60px 20px",
-        backgroundColor: "#fafafa",
       }}
     >
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(3, 1fr)",
-          gap: "50px",
-          maxWidth: "1200px",
-          margin: "0 auto",
-        }}
-      >
-        <div>
-          <h3>Support</h3>
+      <Container maxWidth="lg">
+        <Grid container spacing={5}>
+          <Grid size={{ xs: 12, sm: 6, md: 4 }}>
+            <Typography variant="h6" fontWeight="bold" sx={{ mb: 2 }}>
+              Support
+            </Typography>
+            <Box component="ul" sx={{ p: 0, m: 0, listStyle: "none" }}>
+              <Box component="li" sx={{ mb: 1.5 }}>
+                <Link
+                  href="https://www.airbnb.com/help"
+                  underline="none"
+                  color="inherit"
+                  sx={{ fontSize: "14px", "&:hover": { underline: "always" } }}
+                >
+                  Help Center
+                </Link>
+              </Box>
+              <Box component="li" sx={{ mb: 1.5 }}>
+                <Link
+                  href="https://www.airbnb.com/help"
+                  underline="none"
+                  color="inherit"
+                  sx={{ fontSize: "14px", "&:hover": { underline: "always" } }}
+                >
+                  Get help with a safety issue
+                </Link>
+              </Box>
+              <Box component="li" sx={{ mb: 1.5 }}>
+                <Link
+                  href="https://www.airbnb.com/aircover"
+                  underline="none"
+                  color="inherit"
+                  sx={{ fontSize: "14px", "&:hover": { underline: "always" } }}
+                >
+                  AirCover
+                </Link>
+              </Box>
+              <Box component="li" sx={{ mb: 1.5 }}>
+                <Link
+                  href="https://www.airbnb.com/help/article/2697"
+                  underline="none"
+                  color="inherit"
+                  sx={{ fontSize: "14px", "&:hover": { underline: "always" } }}
+                >
+                  Travel insurance
+                </Link>
+              </Box>
+              <Box component="li" sx={{ mb: 1.5 }}>
+                <Link
+                  href="https://www.airbnb.com/help/article/2867"
+                  underline="none"
+                  color="inherit"
+                  sx={{ fontSize: "14px", "&:hover": { underline: "always" } }}
+                >
+                  Anti-discrimination
+                </Link>
+              </Box>
+              <Box component="li" sx={{ mb: 1.5 }}>
+                <Link
+                  href="https://www.airbnb.com/accessibility"
+                  underline="none"
+                  color="inherit"
+                  sx={{ fontSize: "14px", "&:hover": { underline: "always" } }}
+                >
+                  Disability support
+                </Link>
+              </Box>
+              <Box component="li" sx={{ mb: 1.5 }}>
+                <Link
+                  href="https://www.airbnb.com/help/article/169"
+                  underline="none"
+                  color="inherit"
+                  sx={{ fontSize: "14px", "&:hover": { underline: "always" } }}
+                >
+                  Cancellation options
+                </Link>
+              </Box>
+              <Box component="li" sx={{ mb: 1.5 }}>
+                <Link
+                  href="https://www.airbnb.com/help"
+                  underline="none"
+                  color="inherit"
+                  sx={{ fontSize: "14px", "&:hover": { underline: "always" } }}
+                >
+                  Report neighborhood concern
+                </Link>
+              </Box>
+            </Box>
+          </Grid>
 
-          <p>
-            <a
-              style={{
-                color: "black",
-                textDecoration: "none",
-              }}
-              href="https://www.airbnb.com/help"
-            >
-              Help Center
-            </a>
-          </p>
-          <p>
-            <a
-              style={{
-                color: "black",
-                textDecoration: "none",
-              }}
-              href="https://www.airbnb.com/help"
-            >
-              Get help with a safety issue
-            </a>
-          </p>
-          <p>
-            <a
-              style={{
-                color: "black",
-                textDecoration: "none",
-              }}
-              href="https://www.airbnb.com/aircover"
-            >
-              AirCover
-            </a>
-          </p>
-          <p>
-            <a
-              style={{
-                color: "black",
-                textDecoration: "none",
-              }}
-              href="https://www.airbnb.com/help/article/2697"
-            >
-              Travel insurance
-            </a>
-          </p>
-          <p>
-            <a
-              style={{
-                color: "black",
-                textDecoration: "none",
-              }}
-              href="https://www.airbnb.com/help/article/2697"
-            >
-              Travel insurance
-            </a>
-          </p>
-          <p>
-            <a
-              style={{
-                color: "black",
-                textDecoration: "none",
-              }}
-              href="https://www.airbnb.com/help/article/2867"
-            >
-              Anti-discrimination
-            </a>
-          </p>
-          <p>
-            <a
-              style={{
-                color: "black",
-                textDecoration: "none",
-              }}
-              href="https://www.airbnb.com/accessibility"
-            >
-              Disability support
-            </a>
-          </p>
-          <p>
-            <a
-              style={{
-                color: "black",
-                textDecoration: "none",
-              }}
-              href="https://www.airbnb.com/help/article/169"
-            >
-              Cancellation options
-            </a>
-          </p>
-          <p>
-            <a
-              style={{
-                color: "black",
-                textDecoration: "none",
-              }}
-              href="https://www.airbnb.com/help"
-            >
-              Report neighborhood concern
-            </a>
-          </p>
-        </div>
+          <Grid size={{ xs: 12, sm: 6, md: 4 }}>
+            <Typography variant="h6" fontWeight="bold" sx={{ mb: 2 }}>
+              Hosting
+            </Typography>
+            <Box component="ul" sx={{ p: 0, m: 0, listStyle: "none" }}>
+              <Box component="li" sx={{ mb: 1.5 }}>
+                <Link
+                  href="https://www.airbnb.com/host/homes"
+                  underline="none"
+                  color="inherit"
+                  sx={{ fontSize: "14px", "&:hover": { underline: "always" } }}
+                >
+                  Airbnb your experience
+                </Link>
+              </Box>
+              <Box component="li" sx={{ mb: 1.5 }}>
+                <Link
+                  href="https://www.airbnb.com/resources/hosting-homes"
+                  underline="none"
+                  color="inherit"
+                  sx={{ fontSize: "14px", "&:hover": { underline: "always" } }}
+                >
+                  Hosting resources
+                </Link>
+              </Box>
+              <Box component="li" sx={{ mb: 1.5 }}>
+                <Link
+                  href="https://www.airbnb.com/resources/hosting-homes"
+                  underline="none"
+                  color="inherit"
+                  sx={{ fontSize: "14px", "&:hover": { underline: "always" } }}
+                >
+                  Join a free hosting class
+                </Link>
+              </Box>
+              <Box component="li" sx={{ mb: 1.5 }}>
+                <Link
+                  href="https://www.airbnb.com/host/homes"
+                  underline="none"
+                  color="inherit"
+                  sx={{ fontSize: "14px", "&:hover": { underline: "always" } }}
+                >
+                  Refer a host
+                </Link>
+              </Box>
+            </Box>
+          </Grid>
 
-        <div>
-          <h3>Hosting</h3>
+          <Grid size={{ xs: 12, sm: 6, md: 4 }}>
+            <Typography variant="h6" fontWeight="bold" sx={{ mb: 2 }}>
+              Airbnb Clone
+            </Typography>
+            <Box component="ul" sx={{ p: 0, m: 0, listStyle: "none" }}>
+              <Box component="li" sx={{ mb: 1.5 }}>
+                <Link
+                  href="https://news.airbnb.com/"
+                  underline="none"
+                  color="inherit"
+                  sx={{ fontSize: "14px", "&:hover": { underline: "always" } }}
+                >
+                  2026 Summer Release
+                </Link>
+              </Box>
+              <Box component="li" sx={{ mb: 1.5 }}>
+                <Link
+                  href="https://news.airbnb.com/"
+                  underline="none"
+                  color="inherit"
+                  sx={{ fontSize: "14px", "&:hover": { underline: "always" } }}
+                >
+                  Newsroom
+                </Link>
+              </Box>
+              <Box component="li" sx={{ mb: 1.5 }}>
+                <Link
+                  href="https://investors.airbnb.com/"
+                  underline="none"
+                  color="inherit"
+                  sx={{ fontSize: "14px", "&:hover": { underline: "always" } }}
+                >
+                  Investors
+                </Link>
+              </Box>
+              <Box component="li" sx={{ mb: 1.5 }}>
+                <Link
+                  href="https://www.airbnb.com/giftcards"
+                  underline="none"
+                  color="inherit"
+                  sx={{ fontSize: "14px", "&:hover": { underline: "always" } }}
+                >
+                  Gift cards
+                </Link>
+              </Box>
+            </Box>
+          </Grid>
+        </Grid>
 
-          <p>
-            <a
-              style={{
-                color: "black",
-                textDecoration: "none",
-              }}
-              href="https://www.airbnb.com/host/homes"
+        <Box
+          sx={{
+            mt: 5,
+            pt: 3,
+            borderTop: "1px solid #ddd",
+            textAlign: "center",
+          }}
+        >
+          <Typography variant="body2" color="text.primary">
+            © {new Date().getFullYear()} Airbnb, Inc. ·{" "}
+            <Link
+              href="https://www.airbnb.com/help/article/2855"
+              underline="none"
+              color="inherit"
             >
-              Airbnb your experience
-            </a>
-          </p>
-          <p>
-            <a
-              style={{
-                color: "black",
-                textDecoration: "none",
-              }}
-              href="https://www.airbnb.com/resources/hosting-homes"
+              Privacy
+            </Link>{" "}
+            ·{" "}
+            <Link
+              href="https://www.airbnb.com/terms"
+              underline="none"
+              color="inherit"
             >
-              Hosting resources
-            </a>
-          </p>
-          <p>
-            <a
-              style={{
-                color: "black",
-                textDecoration: "none",
-              }}
-              href="https://www.airbnb.com/resources/hosting-homes"
-            >
-              Join a free hosting class
-            </a>
-          </p>
-          <p>
-            <a
-              style={{
-                color: "black",
-                textDecoration: "none",
-              }}
-              href="https://www.airbnb.com/host/homes"
-            >
-              Refer a host
-            </a>
-          </p>
-        </div>
-
-        <div>
-          <h3>Airbnb Clone</h3>
-
-          <p>
-            <a
-              style={{
-                color: "black",
-                textDecoration: "none",
-              }}
-              href="https://news.airbnb.com/"
-            >
-              2026 Summer Release
-            </a>
-          </p>
-          <p>
-            <a
-              style={{
-                color: "black",
-                textDecoration: "none",
-              }}
-              href="https://news.airbnb.com/"
-            >
-              Newsroom
-            </a>
-          </p>
-          <p>
-            <a
-              style={{
-                color: "black",
-                textDecoration: "none",
-              }}
-              href="https://investors.airbnb.com/"
-            >
-              Investors
-            </a>
-          </p>
-          <p>
-            <a
-              style={{
-                color: "black",
-                textDecoration: "none",
-              }}
-              href="https://www.airbnb.com/giftcards"
-            >
-              Gift cards
-            </a>
-          </p>
-        </div>
-      </div>
-
-      <div
-        style={{
-          borderTop: "1px solid #fff",
-          paddingTop: "20px",
-          textAlign: "center",
-        }}
-      >
-        <p>
-          © 2026 Airbnb, Inc. ·
-          <a
-            style={{
-              color: "black",
-              textDecoration: "none",
-            }}
-            href="https://www.airbnb.com/help/article/2855"
-          >
-            Privacy
-          </a>
-          <a
-            style={{
-              color: "black",
-              textDecoration: "none",
-            }}
-            href="https://www.airbnb.com/terms"
-          >
-            Terms
-          </a>
-        </p>
-      </div>
-    </footer>
+              Terms
+            </Link>
+          </Typography>
+        </Box>
+      </Container>
+    </Box>
   );
 }
 

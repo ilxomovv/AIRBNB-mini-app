@@ -11,6 +11,9 @@ import {
   DialogTitle,
   Grid,
   IconButton,
+  InputLabel,
+  MenuItem,
+  Select,
   Stack,
   TextField,
   Typography,
@@ -23,6 +26,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import SearchIcon from "@mui/icons-material/Search";
 import Navbar from "./Navbar";
 import { Atom } from "react-loading-indicators";
+import Footer from "./Footer";
 
 const addQueary = gql`
   mutation addFavorites($listingId: ID!) {
@@ -33,8 +37,22 @@ const addQueary = gql`
 `;
 
 const Listingsss = gql`
-  query Listings($limit: Int, $page: Int, $search: String) {
-    listings(limit: $limit, page: $page, search: $search) {
+  query Listings(
+    $limit: Int
+    $page: Int
+    $search: String
+    $category: ListingCategory
+    $maxPrice: Int
+    $minPrice: Int
+  ) {
+    listings(
+      limit: $limit
+      page: $page
+      search: $search
+      category: $category
+      maxPrice: $maxPrice
+      minPrice: $minPrice
+    ) {
       items {
         id
         title
@@ -51,6 +69,8 @@ const Listingsss = gql`
   }
 `;
 
+const CATEGORIES = ["APARTMENT", "HOUSE", "VILLA", "CABIN"];
+
 function Listings() {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [page, setPage] = useState(1);
@@ -58,10 +78,20 @@ function Listings() {
   const [hello, { data, loading, error }] = useLazyQuery(Listingsss);
   const [favorites, setFavorites] = useState([]);
   const { accessToken, logout, user } = useAuth();
+  const [category, setCategory] = useState("");
+  const [minPrice, setMinPrice] = useState("");
+  const [maxPrice, setMaxPrice] = useState("");
 
   useEffect(() => {
     hello({
-      variables: { limit: 10, page: page, search: search },
+      variables: {
+        limit: 10,
+        page: page,
+        search: search || undefined,
+        category: category || undefined,
+        minPrice: minPrice ? parseInt(minPrice, 0) : undefined,
+        maxPrice: maxPrice ? parseInt(maxPrice, 10) : undefined,
+      },
     });
   }, [page]);
   const handleFavoriteClick = (itemId) => {
@@ -80,7 +110,14 @@ function Listings() {
   const [addFavorite] = useMutation(addQueary);
   const handleSearch = () => {
     hello({
-      variables: { limit: 12, page: 1, search: search },
+      variables: {
+        limit: 12,
+        page: 1,
+        search: search || undefined,
+        category: category || undefined,
+        minPrice: minPrice ? parseInt(minPrice, 0) : undefined,
+        maxPrice: maxPrice ? parseInt(maxPrice, 0) : undefined,
+      },
     });
   };
   const totolPages = data?.listings?.pagination?.totalPages;
@@ -121,18 +158,56 @@ function Listings() {
         setDialogOpenProf={setDialogOpenProf}
         user={user}
       />
-      <Stack direction="row" spacing={2}>
+      <Stack
+        direction={{ xs: "column", md: "row" }}
+        spacing={1.5}
+        sx={{ mb: 3, alignItems: "center" }}
+      >
         <TextField
-          label="search"
-          onChange={(e) => setSearch(e.target.value)}
+          label="Search"
           size="small"
           value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          sx={{ flex: 2, width: "100%" }}
         />
+
+        <TextField
+          label="Min Price"
+          type="number"
+          size="small"
+          value={minPrice}
+          onChange={(e) => setMinPrice(e.target.value)}
+          sx={{ flex: 1, width: "100%" }}
+        />
+
+        <TextField
+          label="Max Price"
+          type="number"
+          size="small"
+          value={maxPrice}
+          onChange={(e) => setMaxPrice(e.target.value)}
+          sx={{ flex: 1, width: "100%" }}
+        />
+
+        <Select
+          size="small"
+          value={category}
+          displayEmpty
+          onChange={(e) => setCategory(e.target.value)}
+          sx={{ flex: 1, width: "100%" }}
+        >
+          <MenuItem value="">All Categories</MenuItem>
+          {CATEGORIES.map((cat) => (
+            <MenuItem key={cat} value={cat}>
+              {cat}
+            </MenuItem>
+          ))}
+        </Select>
         <Button
           variant="contained"
-          onClick={() => handleSearch()}
+          onClick={handleSearch}
           startIcon={<SearchIcon />}
-          loading={loading}
+          sx={{ height: "40px", px: 3, width: { xs: "100%", md: "auto" } }}
         >
           Search
         </Button>
@@ -196,7 +271,10 @@ function Listings() {
                 </Typography>
               </Link>
 
-              <Stack direction="row" sx={{ gap: 1, alignItems: "center" }}>
+              <Stack
+                direction="row"
+                sx={{ gap: 1, alignItems: "center", flexWrap: "wrap" }}
+              >
                 <Typography>{item.pricePerNight} $ USD / Night • </Typography>
                 <Typography>{item.rating}</Typography>
               </Stack>
@@ -205,20 +283,30 @@ function Listings() {
         ))}
       </Grid>
 
-      <ButtonGroup sx={{ mt: 3 }}>
-        {Array.from({ length: totolPages }, (_, index) => {
-          const pageNum = index + 1;
-          return (
-            <Button
-              key={pageNum}
-              variant={page === pageNum ? "contained" : "outlined"}
-              onClick={() => setPage(pageNum)}
-            >
-              {pageNum}
-            </Button>
-          );
-        })}
-      </ButtonGroup>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          overflowX: "auto",
+          py: 1,
+        }}
+      >
+        <ButtonGroup sx={{ mt: 3, flexWrap: "wrap", justifyContent: "center" }}>
+          {Array.from({ length: totolPages }, (_, index) => {
+            const pageNum = index + 1;
+            return (
+              <Button
+                key={pageNum}
+                variant={page === pageNum ? "contained" : "outlined"}
+                onClick={() => setPage(pageNum)}
+              >
+                {pageNum}
+              </Button>
+            );
+          })}
+        </ButtonGroup>
+      </Box>
+
       <Dialog open={dialogOpen} onClose={() => setDialogOpen(false)}>
         <DialogTitle>You are not registered.</DialogTitle>
         <DialogActions>
@@ -261,6 +349,7 @@ function Listings() {
           </Button>
         </DialogActions>
       </Dialog>
+      <Footer />
     </Container>
   );
 }

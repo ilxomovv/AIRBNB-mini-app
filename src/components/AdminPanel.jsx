@@ -20,6 +20,7 @@ import { useAuth } from "../Store/useAuth";
 import { gql } from "@apollo/client";
 import { useMutation } from "@apollo/client/react";
 import { toast } from "react-toastify";
+
 const CREATE_LISTING_MUTATION = gql`
   mutation CreateListing($input: CreateListingInput!) {
     createListing(input: $input) {
@@ -162,7 +163,14 @@ function AdminPanel() {
 
   if (accessToken && user) {
     return (
-      <Container maxWidth="xs" sx={{ mt: 8 }}>
+      <Container
+        maxWidth="xs"
+        sx={{ mt: { xs: 2, sm: 8 }, px: { xs: 2, sm: 3 } }}
+      >
+        <Button variant="contained" color="error" onClick={() => logout()}>
+          LogOut
+        </Button>
+
         <Typography variant="h5" sx={{ mb: 2, textAlign: "center" }}>
           Create Listing
         </Typography>
@@ -392,8 +400,11 @@ function AdminPanel() {
     );
   }
   return (
-    <Container maxWidth="xs" sx={{ mt: 8 }}>
-      <Paper sx={{ p: 3 }} elevation={3}>
+    <Container
+      maxWidth="xs"
+      sx={{ mt: { xs: 2, sm: 8 }, px: { xs: 2, sm: 3 } }}
+    >
+      <Paper sx={{ p: { xs: 2, sm: 3 } }} elevation={3}>
         <form onSubmit={handleSubmit(handleS)}>
           <Stack spacing={2}>
             <Typography variant="h5" textAlign="center">

@@ -3,12 +3,14 @@ import { useMutation, useQuery } from "@apollo/client/react";
 import LocalOfferIcon from "@mui/icons-material/LocalOffer";
 import Rating from "@mui/material/Rating";
 import {
+  Box,
   Button,
   Container,
   Dialog,
   DialogActions,
   DialogTitle,
   Divider,
+  Grid,
   IconButton,
   ImageList,
   ImageListItem,
@@ -77,10 +79,10 @@ const CreateBookings = gql`
 `;
 
 function ListingsDetail() {
+  const navigate = useNavigate();
   const { control, handleSubmit } = useForm();
   const [dialogOpen, setDialogOpen] = useState(false);
   const { accessToken } = useAuth();
-
   const { id } = useParams();
   const { data, loading, error } = useQuery(DETAILS, {
     variables: { listingId: id },
@@ -96,6 +98,7 @@ function ListingsDetail() {
       },
     },
   );
+
   const handleS = (formData) => {
     if (!accessToken) {
       setDialogOpen(true);
@@ -132,7 +135,6 @@ function ListingsDetail() {
   console.log(data);
 
   const listing = data?.listing;
-  const navigate = useNavigate();
 
   return (
     <Container maxWidth="lg">
@@ -151,23 +153,41 @@ function ListingsDetail() {
         </Typography>
       )}
       {listing && (
-        <Container key={listing.id}>
-          {Array.isArray(listing.images) &&
-            listing.images.map((imgUrl, index) => (
-              <img
-                key={index}
-                src={imgUrl}
-                alt={`${listing.title} - ${index + 1}`}
-                style={{
-                  width: "350px",
-                  height: "300px",
-                  objectFit: "cover",
-                  borderRadius: "8px",
-                }}
-              />
-            ))}
+        <Box key={listing.id}>
+          <Box
+            sx={{
+              display: "flex",
+              gap: 2,
+              overflowX: "auto",
+              pb: 2,
+            }}
+          >
+            {Array.isArray(listing.images) &&
+              listing.images.map((imgUrl, index) => (
+                <img
+                  key={index}
+                  src={imgUrl}
+                  alt={`${listing.title} - ${index + 1}`}
+                  style={{
+                    width: "350px",
+                    height: "300px",
+                    objectFit: "cover",
+                    borderRadius: "8px",
+                    flexShrink: 0,
+                  }}
+                />
+              ))}
+          </Box>
 
-          <Stack direction="row" sx={{ alignItems: "center", gap: 35 }}>
+          <Stack
+            direction={{ xs: "column", md: "row" }}
+            sx={{
+              alignItems: { xs: "flex-start", md: "center" },
+              justifyContent: "space-between",
+              gap: 2,
+              my: 2,
+            }}
+          >
             <Typography variant="h4">{listing.title}</Typography>
             <Paper sx={{ padding: 1 }} elevation={3}>
               <Stack direction="row" sx={{ alignItems: "center" }} spacing={1}>
@@ -178,7 +198,11 @@ function ListingsDetail() {
               </Stack>
             </Paper>
           </Stack>
-          <Stack direction="row" sx={{ gap: 1 }}>
+
+          <Stack
+            direction="row"
+            sx={{ gap: 1, flexWrap: "wrap", alignItems: "center" }}
+          >
             <Typography variant="h6">{listing.guests} Guests •</Typography>
             <Typography variant="h6"> {listing.bedrooms} Bathroom •</Typography>
             <Typography variant="h6">{listing.beds} Beds •</Typography>
@@ -193,16 +217,18 @@ function ListingsDetail() {
           <br />
           <Divider />
           <br />
-          <Stack>
-            <Stack direction="row" spacing={70}>
-              <Stack>
-                <Typography variant="h4">Address: </Typography>
-                <br />
-                <Typography variant="h6">{listing.address}</Typography>
-                <br />
-                <Typography variant="h4">Location: </Typography>
-                <Typography variant="h6">{listing.location}</Typography>
-              </Stack>
+
+          <Grid container spacing={4}>
+            <Grid size={{ xs: 12, md: 7 }}>
+              <Typography variant="h4">Address: </Typography>
+              <br />
+              <Typography variant="h6">{listing.address}</Typography>
+              <br />
+              <Typography variant="h4">Location: </Typography>
+              <Typography variant="h6">{listing.location}</Typography>
+            </Grid>
+
+            <Grid size={{ xs: 12, md: 5 }}>
               <Paper elevation={4}>
                 <Stack sx={{ padding: 2 }}>
                   <Stack direction="row" spacing={0.6}>
@@ -215,11 +241,11 @@ function ListingsDetail() {
                     <Typography variant="h6" color="textDisabled">
                       for 1 nights
                     </Typography>
-                    <br />
-                    <br />
                   </Stack>
-                  <Stack direction="row" spacing={1}>
-                    <Stack>
+                  <br />
+
+                  <Stack direction={{ xs: "column", sm: "row" }} spacing={1}>
+                    <Stack sx={{ flex: 1 }}>
                       <InputLabel>CheckIn: </InputLabel>
                       <Controller
                         name="checkIn"
@@ -230,15 +256,16 @@ function ListingsDetail() {
                         render={({ field, fieldState: { error } }) => (
                           <TextField
                             {...field}
-                            error={error}
+                            error={!!error}
                             type="date"
                             size="small"
+                            fullWidth
                             helperText={error && error.message}
                           />
                         )}
                       />
                     </Stack>
-                    <Stack>
+                    <Stack sx={{ flex: 1 }}>
                       <InputLabel>CheckOut: </InputLabel>
                       <Controller
                         name="checkOut"
@@ -249,15 +276,17 @@ function ListingsDetail() {
                         render={({ field, fieldState: { error } }) => (
                           <TextField
                             {...field}
-                            error={error}
+                            error={!!error}
                             type="date"
                             size="small"
+                            fullWidth
                             helperText={error && error.message}
                           />
                         )}
                       />
                     </Stack>
                   </Stack>
+
                   <Stack>
                     <br />
                     <Controller
@@ -269,10 +298,11 @@ function ListingsDetail() {
                       render={({ field, fieldState: { error } }) => (
                         <TextField
                           {...field}
-                          error={error}
+                          error={!!error}
                           label="Guests"
                           type="number"
                           size="small"
+                          fullWidth
                           helperText={error && error.message}
                         />
                       )}
@@ -283,17 +313,21 @@ function ListingsDetail() {
                       variant="contained"
                       color="error"
                       loading={bookingLoading}
+                      fullWidth
                     >
                       Reserve
                     </Button>
                   </Stack>
                 </Stack>
               </Paper>
-            </Stack>
-            <br />
+            </Grid>
+          </Grid>
 
-            <Divider />
-            <br />
+          <br />
+          <Divider />
+          <br />
+
+          <Stack>
             <Typography variant="h5">
               {listing.isFavorite === true
                 ? "This list has been added to favorites"
@@ -311,13 +345,16 @@ function ListingsDetail() {
           <br />
           <Divider />
           <br />
+
           <Typography variant="h4">Description: </Typography>
           <br />
           <Typography variant="h6">{listing.description}</Typography>
           <br />
           <Divider />
           <br />
+
           <Typography variant="h4">Comments: {listing.reviewsCount}</Typography>
+
           <Dialog open={dialogOpen} onClose={() => setDialogOpen(false)}>
             <DialogTitle>You are not registered.</DialogTitle>
             <DialogActions>
@@ -330,7 +367,7 @@ function ListingsDetail() {
               </Link>
             </DialogActions>
           </Dialog>
-        </Container>
+        </Box>
       )}
     </Container>
   );

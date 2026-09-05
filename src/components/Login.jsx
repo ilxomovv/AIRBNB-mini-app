@@ -60,17 +60,36 @@ function Login() {
   };
 
   return (
-    <Container maxWidth="xs">
-      <Link to="/">
-        <Button startIcon={<ReplyAllIcon />}>Back to Home</Button>
+    <Container
+      maxWidth="xs"
+      sx={{
+        px: { xs: 2, sm: 3 },
+        py: { xs: 2, sm: 4 },
+        minHeight: "100vh",
+        display: "flex",
+        flexDirection: "column",
+      }}
+    >
+      <Link to="/" style={{ textDecoration: "none", alignSelf: "flex-start" }}>
+        <Button startIcon={<ReplyAllIcon />} sx={{ mb: 2 }}>
+          Back to Home
+        </Button>
       </Link>
 
-      <Paper elevation={4}>
-        <Stack spacing={3} sx={{ padding: 3 }}>
-          <Link to="/sign">
-            <Button variant="contained">Sign Up →</Button>
+      <Paper elevation={4} sx={{ borderRadius: 2, width: "100%" }}>
+        <Stack spacing={{ xs: 2, sm: 3 }} sx={{ padding: { xs: 2, sm: 3 } }}>
+          <Link
+            to="/sign"
+            style={{ textDecoration: "none", alignSelf: "flex-end" }}
+          >
+            <Button variant="contained" size="small">
+              Sign Up →
+            </Button>
           </Link>
-          <Typography variant="h5">
+          <Typography
+            variant="h5"
+            sx={{ fontSize: { xs: "1.25rem", sm: "1.5rem" } }}
+          >
             Welcome to the Airbnb login section.
           </Typography>
           <Controller
@@ -84,7 +103,8 @@ function Login() {
                 {...field}
                 label="Email"
                 size="small"
-                error={error}
+                fullWidth
+                error={!!error}
                 helperText={error && error.message}
               />
             )}
@@ -126,7 +146,12 @@ function Login() {
               />
             )}
           />
-          <Button onClick={handleSubmit(handleS)} variant="contained">
+          <Button
+            onClick={handleSubmit(handleS)}
+            variant="contained"
+            disabled={loading}
+            fullWidth
+          >
             Log In
           </Button>
         </Stack>
