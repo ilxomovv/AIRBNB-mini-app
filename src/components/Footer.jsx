@@ -224,9 +224,6 @@ function Footer() {
               Terms
             </Link>
           </Typography>
-          <Link to="/admin">
-            <Button>Admin call</Button>
-          </Link>
         </Box>
       </Container>
     </Box>

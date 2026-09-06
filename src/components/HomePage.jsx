@@ -208,6 +208,7 @@ function HomePage() {
             </Link>
           </Stack>
         </DialogContent>
+
         <DialogActions>
           <Button
             variant="outlined"
@@ -229,6 +230,9 @@ function HomePage() {
         </DialogActions>
       </Dialog>
       <Footer />
+      <Link to="/admin">
+        <Button>Admin call</Button>
+      </Link>
     </Container>
   );
 }
