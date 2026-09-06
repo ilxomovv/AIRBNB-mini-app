@@ -1,4 +1,4 @@
-import { Box, Container, Grid, Link, Typography } from "@mui/material";
+import { Box, Button, Container, Grid, Link, Typography } from "@mui/material";
 
 function Footer() {
   return (
@@ -224,6 +224,9 @@ function Footer() {
               Terms
             </Link>
           </Typography>
+          <Link to="/admin">
+            <Button>Admin call</Button>
+          </Link>
         </Box>
       </Container>
     </Box>

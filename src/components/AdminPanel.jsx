@@ -149,7 +149,7 @@ function AdminPanel() {
           ? formData.images.split(",").map((item) => item.trim())
           : [],
         isFeatured: Boolean(formData.isFeatured),
-        rating: parseFloat(formData.rating),
+        rating: parseInt(formData.rating),
         reviewsCount: parseInt(formData.reviewsCount),
       };
 
